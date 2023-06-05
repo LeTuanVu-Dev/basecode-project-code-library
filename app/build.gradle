@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-
+    id("maven-publish")
     //TODO Uncomment if use firebase remote config
 //    id 'com.google.firebase.firebase-perf'
 //    id 'com.google.gms.google-services'
@@ -67,7 +67,12 @@ android {
             buildConfigField "String", "openApp_resume", ""
         }
     }
-
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 dependencies {
@@ -103,6 +108,7 @@ dependencies {
     //sdp. ssp
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
+    implementation project(path: ':mylibrary')
 
     //font
 //    implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
